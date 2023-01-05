@@ -8,7 +8,7 @@ export const NewProducts = () => {
                     Хиты продаж / Распродажа / Популярные
                 </p>
             </div>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-wrap flex-row justify-between">
                 <div className="flex flex-col w-[248px] p-[10px] border-[1px] border-b-[0px] my-[5px] border-solid border-slate-200">
                     <img src={productImage1} className="mx-auto h-[248px] w-[248px] bg-no-repeat"  />
                     
@@ -100,8 +100,6 @@ export const NewProducts = () => {
 
                 </div>
 
-            </div>
-            <div className="flex flex-row justify-between">
                 <div className="flex flex-col w-[248px] p-[10px] border-[1px] border-b-[0px] my-[5px] border-solid border-slate-200">
                     <img src={productImage1} className="mx-auto h-[248px] w-[248px] bg-no-repeat"  />
 
