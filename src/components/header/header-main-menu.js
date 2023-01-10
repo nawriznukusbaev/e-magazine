@@ -3,7 +3,7 @@ import DehazeIcon from '@mui/icons-material/Dehaze';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SearchIcon from '@mui/icons-material/Search';
-
+import {Link} from "react-router-dom";
 export const HeaderMainMenu = () => {
     return (
         <>
@@ -24,11 +24,13 @@ export const HeaderMainMenu = () => {
                     </div>
 
                     <div className="flex flex-row items-center">
+                        <Link to={'/admin'}>
                         <div className="flex flex-row items-center p-[15px]">
                             <PersonPinIcon style={{color: "white",marginRight:"10px"}}/>
                             <p className="text-white text-[18px] leading-4 font-extrabold">Войти</p>
                             <ExpandMoreIcon style={{color: "white"}}/>
                         </div>
+                        </Link>
                         <div className="flex flex-row items-center p-[15px]">
                             <ShoppingCartIcon style={{color: "white",marginRight:"10px"}}/>
                             <p className="text-white text-[18px] leading-4 font-extrabold">Корзина</p>
