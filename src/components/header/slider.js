@@ -10,7 +10,7 @@ export const Slider = (data) => {
         arr = [...data.data];
     }
 
-    arr.map(item => {
+    /*arr.map(item => {
         countSlider++;
     })
     let timer = setInterval(() => {
@@ -19,7 +19,7 @@ export const Slider = (data) => {
             } else setCount(0);
         }
         , 3000);
-
+*/
 
     const setSlider = (index) => {
         setCount(index);
@@ -50,8 +50,8 @@ export const Slider = (data) => {
                                     className={`w-[16px] h-[16px] mr-[5px] ${index === count ? 'bg-[red]' : 'bg-gray-300'} duration-150 cursor-pointer rounded-lg`}
                                     onClick={() => {
                                         setSlider(index);
-                                        clearInterval(timer);
-                                        timer();
+                                       /* clearInterval(timer);
+                                        timer();*/
                                     }}>
 
                             </button>

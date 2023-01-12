@@ -22,7 +22,7 @@ export const Login = (props) => {
         const password = passwordRef.current.value;
 
         if (login === 'admin' && password === 'admin') {
-            signIn(true, () => navigate('/admin', {replace: true}));
+            signIn(true, () => navigate(fromPage, {replace: true}));
         }
     }
 
