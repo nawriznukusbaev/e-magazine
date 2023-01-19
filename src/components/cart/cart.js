@@ -2,6 +2,7 @@ import {Button} from "@mui/material";
 import phoneImg from "../../img/telefon.webp"
 import {CartProductItem} from "./cartProductItem";
 export const Cart = () => {
+
     return (
         <div className="container-xl">
             <p className="m-[15px] text-3xl font-[750]">Содержимое корзины</p>

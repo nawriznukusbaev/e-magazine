@@ -11,8 +11,8 @@ export const NewProducts = () => {
         dataProducts=[...data];
     }
     console.log(dataProducts);
-    return (
-        <div className="container-xl flex flex-col mb-[15px]">
+    return (<>
+        {data && <div className="container-xl flex flex-col mb-[15px]">
             <div className="flex flex-row">
                 <p className="text-black text-[28px] font-bold">
                     Хиты продаж / Распродажа / Популярные
@@ -20,11 +20,15 @@ export const NewProducts = () => {
             </div>
             <div className="flex flex-wrap flex-row justify-between">
                 {
-                    dataProducts.map((item)=>{
-                        return <Link to={`/products/${item.id}`} key={item.id}><ProductItem key={item} props={item}/></Link>
+                    data.map((item) => {
+                        return <Link to={`/products/${item.id}`} key={item.id}><ProductItem key={item}
+                                                                                            props={item}/></Link>
                     })
                 }
             </div>
         </div>
+        }
+            </>
+
     );
 }
