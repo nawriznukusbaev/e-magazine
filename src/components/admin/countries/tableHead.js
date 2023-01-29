@@ -9,8 +9,6 @@ export const CountriesTableHeader = ()=>{
         <TableCell align="left"><p className="font-bold">Name</p></TableCell>
         <TableCell align="left"><p className="font-bold"></p></TableCell>
         <TableCell align="left"><p className="font-bold">Actions</p></TableCell>
-
-
     </TableRow>
 </TableHead>);
 }

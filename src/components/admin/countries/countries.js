@@ -16,25 +16,27 @@ export default function Countries() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
- /*   return (
-        <>
-            <div className="container-xl mt-[30px]">
-                <Button onClick={handleOpen}>Open modal</Button>
-                <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="modal-modal-title"
-                    aria-describedby="modal-modal-description"
-                >
-                  {/!*  <AddCountry/>*!/}
-                </Modal>
-                <TableContainer component={Paper}>
-                    <Table sx={{minWidth: 650}} aria-label="simple table">
-                        <CountriesTableHeader/>
-                        { isSuccess && <CountriesTableBody data={data}/> }
-                    </Table>
-                </TableContainer>
-            </div>
-        </>
-    )*/
+        return (
+            <>
+                <div className="container-xl mt-[30px]">
+                    <Button onClick={handleOpen} variant="contained" sx={{marginBottom:"20px"}}>Add country</Button>
+                 {/*   <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                          <AddCountry/>
+                    </Modal>*/}
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} aria-label="simple table">
+                            <CountriesTableHeader/>
+                            { data && <CountriesTableBody data={data}/> }
+                        </Table>
+                    </TableContainer>
+                </div>
+            </>
+        )
+
+
 }

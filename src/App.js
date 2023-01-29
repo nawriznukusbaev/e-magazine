@@ -16,6 +16,7 @@ import AdminLayout from "./components/admin";
 import Categories from "./components/admin/categories/categories";
 import Products from "./components/admin/products/products";
 import Countries from "./components/admin/countries/countries";
+import Users from "./components/admin/users/users";
 
 const App = () => {
     return (<Provider store={state}>
@@ -38,7 +39,7 @@ const App = () => {
                         <Route path="products/add" element={<Cart/>}/>
                         <Route path="orders" element={<Cart/>}/>
                         <Route path="orders/add" element={<Cart/>}/>
-                        <Route path="users" element={<Countries/>}/>
+                        <Route path="users" element={<Users/>}/>
                         <Route path="users/add" element={<Cart/>}/>
                         <Route path="categories" element={<Categories/>}/>
                         <Route path="categories/add" element={<AddCategory/>}/>

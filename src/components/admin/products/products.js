@@ -20,7 +20,7 @@ export default function Products() {
     return (
         <>
             <div className="container-xl mt-[30px]">
-                <Button onClick={handleOpen}>Open modal</Button>
+                <Button onClick={handleOpen} variant="contained" sx={{marginBottom:"20px"}}>Add product</Button>
                 <Modal
                     open={open}
                     onClose={handleClose}

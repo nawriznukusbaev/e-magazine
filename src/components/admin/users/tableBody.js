@@ -5,7 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import * as React from "react";
 import Avatar from '@mui/material/Avatar';
-export const CountriesTableBody = ({data})=>{
+export const UsersTableBody = ({data})=>{
         console.log(data);
     return (
         <TableBody>
@@ -21,10 +21,8 @@ export const CountriesTableBody = ({data})=>{
                         sx={{ width: 56, height: 56 }}
                         />
                     </TableCell>
-                    <TableCell align="left">{item.first_name} {item.last_name}</TableCell>
-                    <TableCell align="left">{item.description}</TableCell>
-                    <TableCell align="left">{item.price}</TableCell>
-                    <TableCell align="left">{item.is_admin?"admin":"user"}</TableCell>
+                    <TableCell align="left">{item.user_detail.first_name} {item.user_detail.last_name}</TableCell>
+                     <TableCell align="left">{item.is_admin?"admin":"user"}</TableCell>
                     <TableCell align="left">
                         <EditIcon style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
                         <DeleteForeverIcon style={{color:"rgb(25, 118, 210)"}}/>
