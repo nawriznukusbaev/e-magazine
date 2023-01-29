@@ -18,17 +18,17 @@ export const categoriesApi = createApi({
             query: (category) => ({
                 url: `categories`,
                 method: 'POST',
-                body: category,
                 headers: {
-                    'Content-type':'application/json: charset=UTF-8'
-                }
-            })
+                    'Content-type':'application/json'
+                },
+                body: (category),
+                }),
         }),
         updateCategory: builder.mutation({
             query(category) {
-                const {parent_category_id} = category;
+                const {category_id} = category;
                 return {
-                    url: `categories/${parent_category_id}`,
+                    url: `categories/${category_id}`,
                     method: 'PUT',
                     body: (category),
                     headers: {

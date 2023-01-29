@@ -13,6 +13,9 @@ import {Provider, useSelector} from "react-redux";
 import state from './store/slices/store';
 import {Product} from "./components/product/product";
 import AdminLayout from "./components/admin";
+import Categories from "./components/admin/categories/categories";
+import Products from "./components/admin/products/products";
+import Countries from "./components/admin/countries/countries";
 
 const App = () => {
     return (<Provider store={state}>
@@ -31,15 +34,15 @@ const App = () => {
                         </RequireAuth>
                     }/>*/}
                     <Route path="admin" element={<AdminLayout/>}>
-                        <Route path="products" element={<Cart/>}/>
+                        <Route path="products" element={<Products/>}/>
                         <Route path="products/add" element={<Cart/>}/>
                         <Route path="orders" element={<Cart/>}/>
                         <Route path="orders/add" element={<Cart/>}/>
-                        <Route path="users" element={<Cart/>}/>
+                        <Route path="users" element={<Countries/>}/>
                         <Route path="users/add" element={<Cart/>}/>
-                        <Route path="categories" element={<Cart/>}/>
+                        <Route path="categories" element={<Categories/>}/>
                         <Route path="categories/add" element={<AddCategory/>}/>
-                        <Route path="countries" element={<Cart/>}/>
+                        <Route path="countries" element={<Countries/>}/>
                         <Route path="countries/add" element={<Cart/>}/>
 
 

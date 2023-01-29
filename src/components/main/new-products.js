@@ -20,9 +20,8 @@ export const NewProducts = () => {
             </div>
             <div className="flex flex-wrap flex-row justify-between">
                 {
-                    data.map((item) => {
-                        return <Link to={`/products/${item.id}`} key={item.id}><ProductItem key={item}
-                                                                                            props={item}/></Link>
+                    data?.map((item) => {
+                        return <Link to={`/products/${item.id}`} key={item.id}><ProductItem key={item} {...item}/></Link>
                     })
                 }
             </div>

@@ -28,7 +28,7 @@ const style = {
     p: 4,
 };
 
-export const AddCategory = () => {
+export const AddCountry = () => {
     const [addCategory, result]=useAddCategoryMutation();
     const {data} = useGetCategoriesQuery();
     const { register, handleSubmit } = useForm();
