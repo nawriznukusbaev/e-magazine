@@ -7,7 +7,7 @@ import Modal from '@mui/material/Modal';
 import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
 import {CountriesTableHeader} from "./tableHead";
 import {CountriesTableBody} from "./tableBody";
-
+import {AddCountry} from "./addCountry";
 export default function Countries() {
     const {data,isSuccess} = useGetCountriesQuery();
     console.log(isSuccess);
@@ -20,14 +20,14 @@ export default function Countries() {
             <>
                 <div className="container-xl mt-[30px]">
                     <Button onClick={handleOpen} variant="contained" sx={{marginBottom:"20px"}}>Add country</Button>
-                 {/*   <Modal
+                    <Modal
                         open={open}
                         onClose={handleClose}
                         aria-labelledby="modal-modal-title"
                         aria-describedby="modal-modal-description"
                     >
                           <AddCountry/>
-                    </Modal>*/}
+                    </Modal>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <CountriesTableHeader/>
