@@ -2,20 +2,17 @@ import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableContainer from '@mui/material/TableContainer';
 import Paper from '@mui/material/Paper';
-import {
-    useAddCategoryMutation,
-    useGetCategoriesQuery,
-    useUpdateCategoryQuery
-} from "../../../store/slices/CategorySlice";
+import {useGetCategoriesQuery,} from "../../../store/slices/CategorySlice";
 import Button from '@mui/material/Button';
-
 import Modal from '@mui/material/Modal';
 import {AddCategory} from "./addCategory";
 import {TableHeader} from "./tableHead";
 import {TabBody} from "./tableBody";
+import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
 
 export default function Categories() {
     const {data} = useGetCategoriesQuery();
+    const {dataCountry} = useGetCountriesQuery();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
