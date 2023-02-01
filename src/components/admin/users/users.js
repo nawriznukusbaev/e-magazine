@@ -8,11 +8,14 @@ import {useGetUsersQuery} from "../../../store/slices/UserSlice";
 import {UsersTableHeader} from "./tableHead";
 import {UsersTableBody} from "./tableBody";
 import {AddUser} from "./addUser";
+import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
 
 
 export default function Users() {
     const {data,result} = useGetUsersQuery();
-    console.log(result);
+    const {data:dataCountry} = useGetCountriesQuery();
+    console.log(dataCountry);
+    /*console.log(result);*/
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -21,14 +24,14 @@ export default function Users() {
         <>
             <div className="container-xl mt-[30px]">
                 <Button onClick={handleOpen} variant="contained" sx={{marginBottom:"20px"}}>Add user</Button>
-                <Modal
+                {dataCountry && <Modal
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="modal-modal-title"
                     aria-describedby="modal-modal-description"
                 >
-                    <AddUser/>
-                </Modal>
+                    {dataCountry && <AddUser dataCountry={dataCountry}/>}
+                </Modal>}
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <UsersTableHeader/>

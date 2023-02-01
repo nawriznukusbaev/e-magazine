@@ -30,22 +30,21 @@ const style = {
     p: 4,
 };
 
-export const AddUser = () => {
+export const AddUser = ({dataCountry}) => {
     const [addUser, result] = useAddUserMutation();
-    const {dataCountry} = useGetCountriesQuery();
-    console.log(dataCountry);
+
     const {register, handleSubmit} = useForm();
     const [country, setCountry] = useState();
     const [phone_variant, setPhoneVariant] = useState();
     let defaultData=null;
 
     const onSubmit = (value) => {
-        defaultData.name =
+        defaultData =
         {
             user: {
             username: value.username,
                 is_admin: value.isAdmin,
-                password: value.pasword
+                password: value.password
         },
             user_detail: {
                 first_name: value.first_name,
@@ -62,22 +61,21 @@ export const AddUser = () => {
                 street_address: value.adress,
                 postal_code: value.postal_code,
                 city: value.city,
-                country_id: +country
+                country_id: country
         }
 
         }
-        console.log(defaultData);
 
-        /*if (defaultData.name !== '') {
             addUser(defaultData);
-        }*/
+
     }
 
     const handleChange = (e) => {
-        if (e.target.id === 'phone_variant') {
-            setPhoneVariant(e.target.textContent);
+
+        if (e.target.name === 'phone_variant') {
+            setPhoneVariant(e.target.value);
         }
-        if (e.target.id === 'country') {
+        if (e.target.name === 'country') {
             setCountry(e.target.value);
         }
     }
@@ -168,7 +166,7 @@ export const AddUser = () => {
                     />
                     <Select
                         labelId="demo-simple-select-helper-label"
-                        id="demo-simple-select-helper"
+                        name="country"
                         value={country}
                         label="country"
                         sx={{margin: "10px", width: "100%"}}
@@ -178,34 +176,34 @@ export const AddUser = () => {
                             return <MenuItem
                                 key={item.name}
                                 value={item.id}>
-                                {item.name}
+                                {item.country_name}
                             </MenuItem>
                         })}
                     </Select>
                     <div style={{display: "flex", flexDirection: "row", width: "100%", margin: "10px"}}>
 
                         <TextField
-                            {...register("phone", {required: true, minLength: 9})}
-                            id="phone"
-                            name="phone"
+                            {...register("phone_number", {required: true, minLength: 9})}
+                            id="phone_number"
+                            name="phone_number"
                             label="Phone"
-                            value={"+998"}
                             sx={{marginRight: "10px", width: "50%"}}
                         />
                         <Select
                             labelId="demo-simple-select-helper-label"
-                            id="demo-simple-select-helper"
+                            id="phone_variant"
                             label="type"
+                            name="phone_variant"
                             sx={{width: "50%"}}
                             onChange={handleChange}
                         >
-                            <MenuItem>
+                            <MenuItem value={'mobile'}>
                                 Mobile
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem value={'home'}>
                                 Home
                             </MenuItem>
-                            <MenuItem>
+                            <MenuItem value={'work'}>
                                 Work
                             </MenuItem>
                         </Select>
