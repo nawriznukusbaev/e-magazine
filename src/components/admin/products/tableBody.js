@@ -5,8 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import * as React from "react";
 import Avatar from '@mui/material/Avatar';
+import {useDeleteProductMutation} from "../../../store/slices/ProductSlice";
 export const ProductsTableBody = ({data})=>{
-        console.log(data);
+        const  [deleteProduct]= useDeleteProductMutation();
     return (
         <TableBody>
             {data?.map((item,index) => {
@@ -29,7 +30,7 @@ export const ProductsTableBody = ({data})=>{
                     <TableCell align="left">{item.quantity}</TableCell>
                     <TableCell align="left">
                         <EditIcon style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
-                        <DeleteForeverIcon style={{color:"rgb(25, 118, 210)"}}/>
+                        <DeleteForeverIcon onClick={()=>{deleteProduct(item.id)}} style={{color:"rgb(25, 118, 210)"}}/>
                     </TableCell>
 
                 </TableRow>)

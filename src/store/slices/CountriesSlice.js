@@ -38,10 +38,10 @@ export const countriesApi = createApi({
             }
         }),
         deleteCountry: builder.mutation({
-            query(country) {
-                const {id} = country
+            query(country_id) {
+
                 return {
-                    url: `countries/${id}`,
+                    url: `countries/${country_id}`,
                     method: 'DELETE'
                 }
             }
@@ -51,4 +51,4 @@ export const countriesApi = createApi({
 });
 
 export const {useGetCountriesQuery, useGetSingleCountryQuery,useGetLimitCountryQuery
-    ,useAddCountryMutation,useUpdateCountryQuery,useDeleteCountryQuery} = countriesApi;
+    ,useAddCountryMutation,useUpdateCountryMutation,useDeleteCountryMutation} = countriesApi;

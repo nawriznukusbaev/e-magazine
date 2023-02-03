@@ -38,10 +38,10 @@ export const categoriesApi = createApi({
             }
         }),
         deleteCategory: builder.mutation({
-            query(category) {
-                const {id} = category
+            query(category_id) {
+
                 return {
-                    url: `categories/${id}`,
+                    url: `categories/${category_id}`,
                     method: 'DELETE'
                 }
             }
@@ -50,4 +50,4 @@ export const categoriesApi = createApi({
 
 });
 
-export const {useGetCategoriesQuery, useGetSingleCategoryQuery,useGetLimitCategoryQuery,useAddCategoryMutation,useUpdateCategoryQuery,useDeleteCategoryQuery} = categoriesApi;
+export const {useGetCategoriesQuery, useGetSingleCategoryQuery,useGetLimitCategoryQuery,useAddCategoryMutation,useUpdateCategoryMutation,useDeleteCategoryMutation} = categoriesApi;

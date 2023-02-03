@@ -12,7 +12,6 @@ import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
 
 export default function Categories() {
     const {data} = useGetCategoriesQuery();
-    const {dataCountry} = useGetCountriesQuery();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

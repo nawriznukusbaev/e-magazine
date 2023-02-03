@@ -5,8 +5,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import * as React from "react";
 import Avatar from '@mui/material/Avatar';
+import {useDeleteUserMutation} from "../../../store/slices/UserSlice";
 export const UsersTableBody = ({data})=>{
-        console.log(data);
+        const [deleteUser]=useDeleteUserMutation();
     return (
         <TableBody>
             {data?.map((item,index) => {
@@ -25,7 +26,7 @@ export const UsersTableBody = ({data})=>{
                      <TableCell align="left">{item.is_admin?"admin":"user"}</TableCell>
                     <TableCell align="left">
                         <EditIcon style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
-                        <DeleteForeverIcon style={{color:"rgb(25, 118, 210)"}}/>
+                        <DeleteForeverIcon onClick={()=>{deleteUser(item.id)}} style={{color:"rgb(25, 118, 210)"}}/>
                     </TableCell>
 
                 </TableRow>)
