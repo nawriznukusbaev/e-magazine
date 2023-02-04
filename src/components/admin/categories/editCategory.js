@@ -10,10 +10,7 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import {
-    useGetCategoriesQuery,
-    useUpdateCategoryQuery
-} from "../../../store/slices/CategorySlice";
+import {useUpdateCategoryMutation} from "../../../store/slices/CategorySlice";
 import {useState} from "react";
 
 const style = {
@@ -31,8 +28,9 @@ const style = {
     p: 4,
 };
 
-export const AddCategory = (data) => {
-    const [updateCategory, result]=useUpdateCategoryQuery();
+export const EditCategory = ({data,categorySelect}) => {
+    console.log(data,categorySelect);
+    const [updateCategory, result]=useUpdateCategoryMutation();
     const { register, handleSubmit } = useForm();
     const [category, setCategory] = useState();
     let defaultData={
@@ -43,7 +41,7 @@ export const AddCategory = (data) => {
     const onSubmit = (value) =>{
         defaultData.name=value.category;
         if(defaultData.name!==''){
-            updateCategoryCategory(defaultData);
+            updateCategory(defaultData);
         }
     }
 
@@ -75,13 +73,13 @@ export const AddCategory = (data) => {
                 sx={{margin:"10px",width:"80%"}}
                 onChange={handleChange}
             >
-                {data?.map((item)=>{
+                {/*{data?.map((item)=>{
                     return  <MenuItem
                         key={item.name}
                         value={item.id}>
                         {item.name}
                     </MenuItem>
-                })}
+                })}*/}
                 <MenuItem value="">
                     <em>None</em>
                 </MenuItem>
@@ -89,7 +87,6 @@ export const AddCategory = (data) => {
             <Button
                 type="submit"
                 variant="contained"
-
                 sx={{width:"200px",margin:"5px",padding:"10px"}}
                 label="Add"
             >
