@@ -25,10 +25,10 @@ export const categoriesApi = createApi({
                 }),
         }),
         updateCategory: builder.mutation({
-            query(category) {
-                const {category_id} = category;
+            query({category_id,category}) {
+                console.log(category,category_id);
                 return {
-                    url: `categories/${category_id}`,
+                    url: `categories/${+category_id}`,
                     method: 'PUT',
                     body: (category),
                     headers: {

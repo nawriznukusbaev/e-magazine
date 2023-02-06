@@ -28,20 +28,24 @@ const style = {
     p: 4,
 };
 
-export const EditCategory = ({data,categorySelect}) => {
-    console.log(data,categorySelect);
+export const EditCategory = ({data,itemId}) => {
+    console.log(data,itemId);
     const [updateCategory, result]=useUpdateCategoryMutation();
     const { register, handleSubmit } = useForm();
     const [category, setCategory] = useState();
     let defaultData={
         name:'',
-        parent_category_id:category,
+        parent_category_id:category!==undefined?category:null
     }
 
     const onSubmit = (value) =>{
         defaultData.name=value.category;
         if(defaultData.name!==''){
-            updateCategory(defaultData);
+            console.log(defaultData);
+            updateCategory({
+                category_id:itemId,
+                category:defaultData
+            });
         }
     }
 
@@ -62,7 +66,7 @@ export const EditCategory = ({data,categorySelect}) => {
                 id="category"
                 name="category"
                 label="Category"
-                value={category}
+
                 sx={{margin:"10px",width:"80%"}}
             />
             <Select
@@ -73,16 +77,13 @@ export const EditCategory = ({data,categorySelect}) => {
                 sx={{margin:"10px",width:"80%"}}
                 onChange={handleChange}
             >
-                {/*{data?.map((item)=>{
+                {data.data?.map((item)=>{
                     return  <MenuItem
                         key={item.name}
                         value={item.id}>
                         {item.name}
                     </MenuItem>
-                })}*/}
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
+                })}
             </Select>
             <Button
                 type="submit"

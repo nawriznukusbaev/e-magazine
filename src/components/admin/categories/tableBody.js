@@ -11,31 +11,33 @@ import {EditCategory} from "./editCategory";
 export const TabBody = (data)=>{
     const [deleteCategory]=useDeleteCategoryMutation();
     const [open, setOpen] = React.useState(false);
-    const [categorySelect,setCategorySelect]= React.useState(null);
+    const [itemId,setItemId]= React.useState(0);
     const handleOpen = (item) => {
         setOpen(true);
-        setCategorySelect(item)
+        setItemId(item)
     } ;
     const handleClose = () => setOpen(false);
     return (
         <TableBody>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <EditCategory data={data} itemId={itemId}/>
+            </Modal>
             {data.data?.map((item,index) => {
                 return (<TableRow key={item.id}>
                     <TableCell component="th" scope="row">
                         {index+1}
-                        <Modal
-                            open={open}
-                            onClose={handleClose}
-                            aria-labelledby="modal-modal-title"
-                            aria-describedby="modal-modal-description"
-                        >
-                            <EditCategory data={data} categorySelect={categorySelect}/>
-                        </Modal>
+
                     </TableCell>
                     <TableCell align="left">{item.name}</TableCell>
                     <TableCell align="left">{item.parent_category?.name}</TableCell>
                     <TableCell align="left">
-                        <EditIcon  onClick={()=>{handleOpen(item)}} style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
+
+                        <EditIcon  onClick={()=>{handleOpen(item.id)}} style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
                         <DeleteForeverIcon onClick={()=>{deleteCategory(item.id)}} style={{color:"rgb(25, 118, 210)"}}/>
                     </TableCell>
                     <TableCell align="left"></TableCell>
