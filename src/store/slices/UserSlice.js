@@ -25,14 +25,14 @@ export const usersApi = createApi({
             }),
         }),
         updateUser: builder.mutation({
-            query(user) {
-                const {user_id} = user;
+            query({user,user_id}) {
+
                 return {
                     url: `users/${user_id}`,
                     method: 'PUT',
                     body: (user),
                     headers: {
-                        'Content-type':'application/json: charset=UTF-8'
+                        'Content-type':'application/json'
                     }
                 }
             }

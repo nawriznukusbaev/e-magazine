@@ -10,11 +10,8 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import {
-    useGetCategoriesQuery,
-    useUpdateCategoryQuery
-} from "../../../store/slices/CategorySlice";
-import {useState} from "react";
+import {useUpdateCountryMutation} from "../../../store/slices/CountriesSlice";
+
 
 const style = {
     display:'flex',
@@ -31,25 +28,20 @@ const style = {
     p: 4,
 };
 
-export const AddCategory = (data) => {
-    const [updateCategory, result]=useUpdateCategoryQuery();
+export const EditCountry = ({itemId}) => {
+
+    const [updateCountry, result]=useUpdateCountryMutation();
     const { register, handleSubmit } = useForm();
-    const [category, setCategory] = useState();
-    let defaultData={
-        name:'',
-        parent_category_id:category,
-    }
+
 
     const onSubmit = (value) =>{
-        defaultData.name=value.category;
-        if(defaultData.name!==''){
-            updateCategoryCategory(defaultData);
+             updateCountry({
+                 "country_name":value.country,
+                 "country_id":itemId
+            });
         }
-    }
 
-    const handleChange = (e) =>{
-        setCategory(e.target.value);
-    }
+
 
     return (
         <Box
@@ -60,36 +52,16 @@ export const AddCategory = (data) => {
             autoComplete="off"
         >
             <TextField
-                {...register("category",{ required: true, minLength: 5 })}
-                id="category"
-                name="category"
-                label="Category"
-                value={category}
+                {...register("country",{ required: true, minLength: 5 })}
+                id="country"
+                name="country"
+                label="country"
                 sx={{margin:"10px",width:"80%"}}
             />
-            <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={category}
-                label="category"
-                sx={{margin:"10px",width:"80%"}}
-                onChange={handleChange}
-            >
-                {data?.map((item)=>{
-                    return  <MenuItem
-                        key={item.name}
-                        value={item.id}>
-                        {item.name}
-                    </MenuItem>
-                })}
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-            </Select>
+
             <Button
                 type="submit"
                 variant="contained"
-
                 sx={{width:"200px",margin:"5px",padding:"10px"}}
                 label="Add"
             >

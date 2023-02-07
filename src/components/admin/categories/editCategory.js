@@ -66,7 +66,6 @@ export const EditCategory = ({data,itemId}) => {
                 id="category"
                 name="category"
                 label="Category"
-
                 sx={{margin:"10px",width:"80%"}}
             />
             <Select

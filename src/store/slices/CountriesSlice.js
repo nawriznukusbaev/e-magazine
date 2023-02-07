@@ -25,14 +25,14 @@ export const countriesApi = createApi({
             }),
         }),
         updateCountry: builder.mutation({
-            query(country) {
-                const {country_id} = country;
+            query({country_name,country_id}) {
+
                 return {
                     url: `countries/${country_id}`,
                     method: 'PUT',
-                    body: (country),
+                    body: ({country_name}),
                     headers: {
-                        'Content-type':'application/json: charset=UTF-8'
+                        'Content-type':'application/json'
                     }
                 }
             }

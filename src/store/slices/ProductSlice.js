@@ -25,14 +25,14 @@ export const productsApi = createApi({
             }),
         }),
         updateProduct: builder.mutation({
-            query(product) {
-                const {product_id} = product;
+            query({product,product_id}) {
+
                 return {
                     url: `products/${product_id}`,
                     method: 'PUT',
                     body: (product),
                     headers: {
-                        'Content-type':'application/json: charset=UTF-8'
+                        'Content-type':'application/json'
                     }
                 }
             }

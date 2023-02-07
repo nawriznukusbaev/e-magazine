@@ -10,11 +10,9 @@ import Select from '@mui/material/Select';
 import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import {
-    useGetCategoriesQuery,
-    useUpdateCategoryQuery
-} from "../../../store/slices/CategorySlice";
+import {useUpdateProductMutation} from "../../../store/slices/ProductSlice";
 import {useState} from "react";
+import {useGetCategoriesQuery} from "../../../store/slices/CategorySlice";
 
 const style = {
     display:'flex',
@@ -24,27 +22,38 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: 600,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
 };
 
-export const AddCategory = (data) => {
-    const [updateCategory, result]=useUpdateCategoryQuery();
+export const EditProduct = ({data,itemId}) => {
+    const [updateProduct]=useUpdateProductMutation();
     const { register, handleSubmit } = useForm();
     const [category, setCategory] = useState();
-    let defaultData={
-        name:'',
-        parent_category_id:category,
-    }
+    let defaultData=null;
 
     const onSubmit = (value) =>{
-        defaultData.name=value.category;
-        if(defaultData.name!==''){
-            updateCategoryCategory(defaultData);
-        }
+        defaultData={ "product": {
+                "name": value.name,
+                "price": +value.price,
+                "description": value.description,
+                "quantity": +value.quantity,
+                "discount": +value.discount,
+                "category_id": category
+            },
+            "product_images": [
+                {
+                    "image_path": value.image_path
+                },
+            ]}
+        updateProduct({
+            product:defaultData,
+            product_id:itemId,
+        });
+
     }
 
     const handleChange = (e) =>{
@@ -59,33 +68,77 @@ export const AddCategory = (data) => {
             noValidate
             autoComplete="off"
         >
-            <TextField
-                {...register("category",{ required: true, minLength: 5 })}
-                id="category"
-                name="category"
-                label="Category"
-                value={category}
-                sx={{margin:"10px",width:"80%"}}
-            />
-            <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                value={category}
-                label="category"
-                sx={{margin:"10px",width:"80%"}}
-                onChange={handleChange}
-            >
-                {data?.map((item)=>{
-                    return  <MenuItem
-                        key={item.name}
-                        value={item.id}>
-                        {item.name}
-                    </MenuItem>
-                })}
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-            </Select>
+            <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+                <div style={{display:"flex",flexDirection:"column",marginRight:"20px"}}>
+                    <TextField
+                        {...register("name",{ required: true, minLength: 5 })}
+                        id="name"
+                        name="name"
+                        label="Name"
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                    <TextField
+                        {...register("price",{ required: true, minLength: 4 })}
+                        id="price"
+                        name="price"
+                        label="Price"
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                    <TextField
+                        {...register("description",{ required: true, minLength: 10 })}
+                        id="description"
+                        name="description"
+                        label="Description"
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                    <TextField
+                        {...register("quantity",{ required: true })}
+                        id="quantity"
+                        name="quantity"
+                        label="Quantity"
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                </div>
+                <div style={{display:"flex",flexDirection:"column"}}>
+                    <TextField
+                        {...register("discount",{ required: true })}
+                        id="discount"
+                        name="discount"
+                        label="Discount"
+                        value={0}
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                    <TextField
+                        {...register("image_path",{ required: true, minLength: 5 })}
+                        id="image_path"
+                        name="image_path"
+                        label="Image link"
+                        sx={{margin:"10px",width:"100%"}}
+                    />
+                    <Select
+                        labelId="demo-simple-select-helper-label"
+                        id="demo-simple-select-helper"
+                        value={category}
+                        label="category"
+                        sx={{margin:"10px",width:"100%"}}
+                        onChange={handleChange}
+                    >
+                        {data.data?.map((item)=>{
+                            return  <MenuItem
+                                key={item.name}
+                                value={item.id}>
+                                {item.name}
+                            </MenuItem>
+                        })}
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                    </Select>
+                </div>
+            </div>
+
+
+
             <Button
                 type="submit"
                 variant="contained"

@@ -32,7 +32,7 @@ export const categoriesApi = createApi({
                     method: 'PUT',
                     body: (category),
                     headers: {
-                        'Content-type':'application/json: charset=UTF-8'
+                        'Content-type':'application/json'
                     }
                 }
             }
