@@ -1,19 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
-const initialState = {
-    value: false,
-};
+export const authApi = createApi({
+    reducerPath: 'authApi',
+    baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce.icedev.uz/'}),
+    endpoints: (builder) => ({
+        signIn: builder.mutation({
+            query(data) {
+                const body = encodeURIComponent('username') + '=' + encodeURIComponent(data.username)
+                    + '&&' +
+                    encodeURIComponent('password') + '=' + encodeURIComponent(data.password)
+                return {
+                    url: 'token',
+                    method: 'POST',
+                    headers: {
+                        'Content-type': 'application/x-www-form-urlencoded;charset=UTF-8'
+                    },
+                    body
+                }
+            }
+        })
+    })
+})
 
-const authSlice = createSlice({
-    name: 'authentication',
-    initialState,
-    reducers: {
-        auth: (state, action) => {
-            state.value = action.payload;
-        },
-
-    },
-});
-
-export const { auth } = authSlice.actions;
-export default authSlice.reducer;
+export const {useSignInMutation} = authApi;

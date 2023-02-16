@@ -3,7 +3,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
 
 export const countriesApi = createApi({
     reducerPath: 'countriesApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce-h6sh.onrender.com/'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce.icedev.uz/'}),
     endpoints: (builder) => ({
         getCountries: builder.query({
             query: () => `countries`

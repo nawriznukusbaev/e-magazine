@@ -6,6 +6,7 @@ import {useRef} from "react";
 import {useLocation, useNavigate,Navigate} from "react-router-dom";
 import {useAuth} from "../../hook/useAuth";
 import {getItem} from "../../utils";
+import {useSignInMutation} from "../../store/slices/AuthSlice";
 
 export const Login = (props) => {
     const loginRef = useRef();
@@ -13,17 +14,22 @@ export const Login = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
     const {signIn} = useAuth();
-
+    const [login,result]=useSignInMutation();
 
     const fromPage = location.state?.from?.pathname || '/admin'
 
     function auth() {
-        const login = loginRef.current.value;
+        const username= loginRef.current.value;
         const password = passwordRef.current.value;
-
-        if (login === 'admin' && password === 'admin') {
-            signIn(true, () => navigate(fromPage, {replace: true}));
+        const data={
+            username:username,
+            password:password
         }
+        login(data);
+        console.log(result);
+       /* if (login === 'admin' && password === 'admin') {
+            signIn(true, () => navigate(fromPage, {replace: true}));
+        }*/
     }
 
     /* if (getItem('auth') === true) {
