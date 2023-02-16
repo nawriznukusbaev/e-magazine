@@ -7,7 +7,7 @@ import {useLocation, useNavigate,Navigate} from "react-router-dom";
 import {useAuth} from "../../hook/useAuth";
 import {getItem} from "../../utils";
 import {useSignInMutation} from "../../store/slices/AuthSlice";
-
+import {Cookies} from "react-cookie";
 export const Login = (props) => {
     const loginRef = useRef();
     const passwordRef = useRef();
@@ -15,7 +15,7 @@ export const Login = (props) => {
     const location = useLocation();
     const {signIn} = useAuth();
     const [login,result]=useSignInMutation();
-
+    const cookie = new Cookies()
     const fromPage = location.state?.from?.pathname || '/admin'
 
     function auth() {
@@ -25,11 +25,13 @@ export const Login = (props) => {
             username:username,
             password:password
         }
+
         login(data);
-        console.log(result);
-       /* if (login === 'admin' && password === 'admin') {
+
+        if (result.data?.access_token) {
+            cookie.set('token', result.data?.access_token, { path: fromPage })
             signIn(true, () => navigate(fromPage, {replace: true}));
-        }*/
+        }
     }
 
     /* if (getItem('auth') === true) {
