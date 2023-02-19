@@ -5,7 +5,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {useRef} from "react";
 import {useLocation, useNavigate,Navigate} from "react-router-dom";
 import {useAuth} from "../../hook/useAuth";
-import {getItem} from "../../utils";
+import {getItem, getJwtToken} from "../../utils";
 import {useSignInMutation} from "../../store/slices/AuthSlice";
 import {Cookies} from "react-cookie";
 export const Login = (props) => {
@@ -18,9 +18,10 @@ export const Login = (props) => {
     const cookie = new Cookies()
     const fromPage = location.state?.from?.pathname || '/admin'
 
-    function auth() {
+    async function auth() {
         const username= loginRef.current.value;
         const password = passwordRef.current.value;
+
         const data={
             username:username,
             password:password
@@ -29,7 +30,9 @@ export const Login = (props) => {
         login(data);
 
         if (result.data?.access_token) {
+            console.log(result.data?.access_token)
             cookie.set('token', result.data?.access_token, { path: fromPage })
+
             signIn(true, () => navigate(fromPage, {replace: true}));
         }
     }
@@ -60,7 +63,7 @@ export const Login = (props) => {
                     autoComplete="current-password"
                     inputRef={passwordRef}
                 />
-                <Button variant="contained" startIcon={<AccountCircleIcon/>} onClick={() => {
+                <Button variant="contained" disabled={result.isLoading} startIcon={<AccountCircleIcon/>} onClick={() => {
                     auth();
                 }}>
                     Войти

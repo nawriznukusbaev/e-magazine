@@ -9,13 +9,14 @@ import {AddCategory} from "./addCategory";
 import {TableHeader} from "./tableHead";
 import {TabBody} from "./tableBody";
 import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
+import {getJwtToken} from "../../../utils";
 
 export default function Categories() {
     const {data} = useGetCategoriesQuery();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
+    console.log(getJwtToken('token'));
     console.log(data);
     return (
         <>

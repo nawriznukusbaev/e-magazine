@@ -20,7 +20,7 @@ import Users from "./components/admin/users/users";
 
 const App = () => {
     return (<Provider store={state}>
-        <AuthProvider>
+            <AuthProvider>
                 <Routes>
                     <Route path="/" element={<Layout/>}>
                         <Route index element={<Homepage/>}/>
@@ -50,7 +50,7 @@ const App = () => {
                     </Route>
                     <Route path="/login" element={<LoginForm/>}/>
                 </Routes>
-        </AuthProvider>
+            </AuthProvider>
         </Provider>
     );
 };

@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
-
+import jwtDecode from "jwt-decode";
+import {Cookies} from "react-cookie";
 function getItem(value){
    let getValue = JSON.parse(sessionStorage.getItem(value));
    return getValue;
@@ -19,6 +20,13 @@ const signOut = (fun) => {
     fun();
 }
 
+const getCookie=(name)=>{
+    const cookie= new Cookies();
+    const cookieData=cookie.get(name);
+    return cookieData;
+}
+const getJwtToken=(name) =>{
+    return jwtDecode(getCookie(name));
+}
 
-
-export {getItem,setItem,signIn,signOut};
+export {getItem,setItem,signIn,signOut,getJwtToken,getCookie};

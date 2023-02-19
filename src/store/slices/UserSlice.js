@@ -15,14 +15,18 @@ export const usersApi = createApi({
             query: (limit) => `users?limit=${limit}&offset=${limit}`
         }),
         addUser: builder.mutation({
-            query: (user) => ({
-                url: `users`,
-                method: 'POST',
-                headers: {
-                    'Content-type':'application/json'
-                },
-                body: (user),
-            }),
+            query: (user) =>{
+                const path=user.user.is_admin?'users/admin':'users';
+                return {
+                    url: path,
+                    method: 'POST',
+                    headers: {
+                        'Content-type':'application/json'
+                    },
+                    body: (user)
+                }
+
+            },
         }),
         updateUser: builder.mutation({
             query({user,user_id}) {

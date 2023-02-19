@@ -65,6 +65,7 @@ export const EditUser = ({data,itemId}) => {
                 }
 
             }
+            console.log(defaultData);
 
         updateUser({
             user:defaultData,
