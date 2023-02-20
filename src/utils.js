@@ -23,6 +23,7 @@ const signOut = (fun) => {
 const getCookie=(name)=>{
     const cookie= new Cookies();
     const cookieData=cookie.get(name);
+    console.log(cookieData);
     return cookieData;
 }
 const getJwtToken=(name) =>{

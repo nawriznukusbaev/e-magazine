@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react';
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route,redirect} from "react-router-dom";
 import Layout from "./pages/layout";
 import Homepage from "./pages/homepage";
 import NotFound from "./pages/404";
@@ -17,8 +17,16 @@ import Categories from "./components/admin/categories/categories";
 import Products from "./components/admin/products/products";
 import Countries from "./components/admin/countries/countries";
 import Users from "./components/admin/users/users";
-
+import {getCookie, getJwtToken} from "./utils";
 const App = () => {
+
+        var data=null;
+        if(getCookie('token')===undefined){
+            data=0;
+        }
+        else data=1;
+
+
     return (<Provider store={state}>
             <AuthProvider>
                 <Routes>
@@ -46,9 +54,22 @@ const App = () => {
                         <Route path="countries" element={<Countries/>}/>
                         <Route path="countries/add" element={<Cart/>}/>
 
-
                     </Route>
                     <Route path="/login" element={<LoginForm/>}/>
+                    {
+                       ?(
+                            getJwtToken('token').is_admin===1?(
+                                redirect("/admin")
+                            ):(
+                                redirect("/user")
+                            )
+
+                        ):(
+                            redirect("/login")
+                        )
+                    }
+
+
                 </Routes>
             </AuthProvider>
         </Provider>
