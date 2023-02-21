@@ -4,10 +4,11 @@ import {categoriesApi} from "./CategorySlice";
 import {countriesApi} from "./CountriesSlice";
 import {usersApi} from "./UserSlice";
 import {authApi} from "./AuthSlice";
-
+import loginSlice from "./LoginSlice";
 import cartReducer from "./CartSlice";
-export default configureStore({
+const store = configureStore({
     reducer: {
+        login:loginSlice,
         cart:cartReducer,
         [productsApi.reducerPath]: productsApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
@@ -24,4 +25,4 @@ export default configureStore({
         )
 });
 
-
+export default store;

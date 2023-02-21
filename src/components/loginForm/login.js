@@ -8,17 +8,22 @@ import {useAuth} from "../../hook/useAuth";
 import {getItem, getJwtToken} from "../../utils";
 import {useSignInMutation} from "../../store/slices/AuthSlice";
 import {Cookies} from "react-cookie";
+import {addData} from "../../store/slices/LoginSlice";
+import jwtDecode from "jwt-decode";
+import {useDispatch} from "react-redux";
+import {toast} from "react-toastify";
+
 export const Login = (props) => {
     const loginRef = useRef();
     const passwordRef = useRef();
     const navigate = useNavigate();
     const location = useLocation();
-    const {signIn} = useAuth();
+
     const [login,result]=useSignInMutation();
     const cookie = new Cookies()
     const fromPage = location.state?.from?.pathname || '/admin'
-
-    async function auth() {
+    const dispatch=useDispatch();
+    async function  auth() {
         const username= loginRef.current.value;
         const password = passwordRef.current.value;
 
@@ -27,14 +32,30 @@ export const Login = (props) => {
             password:password
         }
 
-        login(data);
+        await login(data)
+            .unwrap()
+            .then((response)=>{
+                const decode = jwtDecode(response.access_token)
+                console.log(response)
+                console.log('Decode',decode)
+                cookie.set('token',response.access_token)
+                dispatch(addData(decode))
+                navigate(fromPage,{replace:true})
+                toast(`Welcome ${decode.sub}`, {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            })
+            .catch(e=>{
+                console.log(e)
+            });
 
-        if (result.data?.access_token) {
-            console.log(result.data?.access_token)
-            cookie.set('token', result.data?.access_token, { path: fromPage })
-
-            signIn(true, () => navigate(fromPage, {replace: true}));
-        }
     }
 
     /* if (getItem('auth') === true) {

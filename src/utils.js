@@ -23,11 +23,20 @@ const signOut = (fun) => {
 const getCookie=(name)=>{
     const cookie= new Cookies();
     const cookieData=cookie.get(name);
-    console.log(cookieData);
     return cookieData;
 }
+
+
+
 const getJwtToken=(name) =>{
     return jwtDecode(getCookie(name));
 }
 
-export {getItem,setItem,signIn,signOut,getJwtToken,getCookie};
+const getUserData=(name)=> {
+    if(getCookie(name)!==undefined){
+       return  getJwtToken(name).is_admin===1?1:0;
+    }
+    else return false
+}
+
+export {getItem,setItem,signIn,signOut,getJwtToken,getCookie,getUserData};

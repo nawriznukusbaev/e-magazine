@@ -8,41 +8,42 @@ import {AddCategory} from "./components/admin/categories/addCategory";
 import LoginForm from "./components/loginForm";
 import Cart from "./components/cart";
 import {RequireAuth} from "./hoc/RequireAuth";
+import {RequireAdmin} from "./hoc/RequireAdmin";
 import {AuthProvider} from "./hoc/AuthProvider";
-import {Provider, useSelector} from "react-redux";
-import state from './store/slices/store';
 import {Product} from "./components/product/product";
 import AdminLayout from "./components/admin";
 import Categories from "./components/admin/categories/categories";
 import Products from "./components/admin/products/products";
 import Countries from "./components/admin/countries/countries";
 import Users from "./components/admin/users/users";
-import {getCookie, getJwtToken} from "./utils";
+import UserPage from "./components/userpage";
+
+
 const App = () => {
 
-        var data=null;
-        if(getCookie('token')===undefined){
-            data=0;
-        }
-        else data=1;
-
-
-    return (<Provider store={state}>
-            <AuthProvider>
-                <Routes>
+    return (
+        <Routes>
                     <Route path="/" element={<Layout/>}>
                         <Route index element={<Homepage/>}/>
                         <Route path="cart" element={<Cart/>}/>
                         <Route path="/products/:id" element={<Product/>}/>
                         <Route path='*' element={<NotFound/>}/>
-
                     </Route>
-                    {/*<Route path="/admin" element={
+                    <Route path="/userpage" element={
                         <RequireAuth>
-                            <Admin/>
+                            <UserPage/>
                         </RequireAuth>
-                    }/>*/}
-                    <Route path="admin" element={<AdminLayout/>}>
+                    }/>
+                    <Route path='/login' element={<AuthProvider>
+                        <LoginForm/>
+                    </AuthProvider>}/>
+
+                    <Route path='/admin' element={
+                        <RequireAdmin>
+                            <AdminLayout/>
+                        </RequireAdmin>
+                    }/>
+                    <Route element={<AdminLayout/>}>
                         <Route path="products" element={<Products/>}/>
                         <Route path="products/add" element={<Cart/>}/>
                         <Route path="orders" element={<Cart/>}/>
@@ -53,27 +54,10 @@ const App = () => {
                         <Route path="categories/add" element={<AddCategory/>}/>
                         <Route path="countries" element={<Countries/>}/>
                         <Route path="countries/add" element={<Cart/>}/>
-
                     </Route>
-                    <Route path="/login" element={<LoginForm/>}/>
-                    {
-                       ?(
-                            getJwtToken('token').is_admin===1?(
-                                redirect("/admin")
-                            ):(
-                                redirect("/user")
-                            )
+                    </Routes>
 
-                        ):(
-                            redirect("/login")
-                        )
-                    }
-
-
-                </Routes>
-            </AuthProvider>
-        </Provider>
-    );
-};
+    )
+}
 
 export default App
