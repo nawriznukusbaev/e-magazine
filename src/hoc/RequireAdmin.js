@@ -12,7 +12,7 @@ export const RequireAdmin= ({children}) => {
             dispatch(addData(getJwtToken('token')));
         }
     },[])
-    if(getJwtToken('token').is_admin!==1){
+    if(getJwtToken('token').is_admin===1){
         return <Navigate to='/' replace={true}/>
     }
     return (

@@ -58,13 +58,6 @@ export const Login = (props) => {
 
     }
 
-    /* if (getItem('auth') === true) {
-        console.log(getItem('auth'));
-         const navigateTo= ()=>{
-             return <Navigate to={'/admin'}/>
-         }
-         navigateTo();
-     }*/
 
 
     return (

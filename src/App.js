@@ -20,7 +20,6 @@ import UserPage from "./components/userpage";
 
 
 const App = () => {
-
     return (
         <Routes>
                     <Route path="/" element={<Layout/>}>
@@ -43,7 +42,7 @@ const App = () => {
                             <AdminLayout/>
                         </RequireAdmin>
                     }/>
-                    <Route element={<AdminLayout/>}>
+                    <Route path='/admin'  element={<AdminLayout/>}>
                         <Route path="products" element={<Products/>}/>
                         <Route path="products/add" element={<Cart/>}/>
                         <Route path="orders" element={<Cart/>}/>
