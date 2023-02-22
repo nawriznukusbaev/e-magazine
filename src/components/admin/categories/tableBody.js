@@ -7,6 +7,7 @@ import * as React from "react";
 import {useDeleteCategoryMutation} from "../../../store/slices/CategorySlice";
 import Modal from "@mui/material/Modal";
 import {EditCategory} from "./editCategory";
+import {toast} from "react-toastify";
 
 export const TabBody = (data)=>{
     const [deleteCategory]=useDeleteCategoryMutation();
@@ -38,7 +39,32 @@ export const TabBody = (data)=>{
                     <TableCell align="left">
 
                         <EditIcon  onClick={()=>{handleOpen(item.id)}} style={{color:"rgb(25, 118, 210)",marginRight:"5px"}}/>
-                        <DeleteForeverIcon onClick={()=>{deleteCategory(item.id)}} style={{color:"rgb(25, 118, 210)"}}/>
+                        <DeleteForeverIcon onClick={()=>{deleteCategory(item.id).unwrap().then(response=>{
+                            toast.success('Успешно',{
+                                position: "bottom-left",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "light",
+                            })
+
+                        }).catch(error=>{
+                            toast.error(`${error.data.detail}`,{
+                                position: "bottom-left",
+                                autoClose: 3000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true,
+                                progress: undefined,
+                                theme: "colored",
+                            })
+                        })
+
+                        }} style={{color:"rgb(25, 118, 210)"}}/>
                     </TableCell>
                     <TableCell align="left"></TableCell>
                     <TableCell align="left"></TableCell>

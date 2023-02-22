@@ -12,6 +12,8 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import {useUpdateCategoryMutation} from "../../../store/slices/CategorySlice";
 import {useState} from "react";
+import {toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css'
 
 const style = {
     display:'flex',
@@ -41,11 +43,33 @@ export const EditCategory = ({data,itemId}) => {
     const onSubmit = (value) =>{
         defaultData.name=value.category;
         if(defaultData.name!==''){
-            console.log(defaultData);
-            updateCategory({
+                  updateCategory({
                 category_id:itemId,
                 category:defaultData
-            });
+            }).unwrap().then(response=>{
+                      toast.success('Успешно изменен',{
+                          position: "bottom-left",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "light",
+                      })
+
+                  }).catch(error=>{
+                      toast.error(`${error.data.detail}`,{
+                          position: "bottom-left",
+                          autoClose: 3000,
+                          hideProgressBar: false,
+                          closeOnClick: true,
+                          pauseOnHover: true,
+                          draggable: true,
+                          progress: undefined,
+                          theme: "colored",
+                      })
+                  })
         }
     }
 

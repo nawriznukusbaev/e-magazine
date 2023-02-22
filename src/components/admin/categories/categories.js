@@ -16,8 +16,7 @@ export default function Categories() {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    console.log(getJwtToken('token'));
-    console.log(data);
+
     return (
         <>
             <div className="container-xl mt-[30px]">

@@ -36,8 +36,7 @@ export const Login = (props) => {
             .unwrap()
             .then((response)=>{
                 const decode = jwtDecode(response.access_token)
-                console.log(response)
-                console.log('Decode',decode)
+            
                 cookie.set('token',response.access_token)
                 dispatch(addData(decode))
                 navigate(fromPage,{replace:true})
