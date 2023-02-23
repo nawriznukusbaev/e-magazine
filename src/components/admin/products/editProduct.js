@@ -13,6 +13,7 @@ import MuiAlert from '@mui/material/Alert';
 import {useUpdateProductMutation} from "../../../store/slices/ProductSlice";
 import {useState} from "react";
 import {useGetCategoriesQuery} from "../../../store/slices/CategorySlice";
+import {toast} from "react-toastify";
 
 const style = {
     display:'flex',
@@ -52,7 +53,30 @@ export const EditProduct = ({data,itemId}) => {
         updateProduct({
             product:defaultData,
             product_id:itemId,
-        });
+        }).unwrap().then(response=>{
+            toast.success('Успешно',{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+
+        }).catch(error=>{
+            toast.error(`${error.data.detail}`,{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        })
 
     }
 

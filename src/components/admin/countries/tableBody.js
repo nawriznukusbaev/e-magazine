@@ -7,6 +7,7 @@ import * as React from "react";
 import {useDeleteCountryMutation} from "../../../store/slices/CountriesSlice";
 import Modal from "@mui/material/Modal";
 import {EditCountry} from "./editCountry";
+import {toast} from "react-toastify";
 
 export const CountriesTableBody = ({data}) => {
     const [deleteCountry] = useDeleteCountryMutation();
@@ -39,7 +40,30 @@ export const CountriesTableBody = ({data}) => {
                             handleOpen(item.id)
                         }} style={{color: "rgb(25, 118, 210)", marginRight: "5px"}}/>
                         <DeleteForeverIcon onClick={() => {
-                            deleteCountry(item.id)
+                            deleteCountry(item.id).unwrap().then(response=>{
+                                toast.success('Успешно',{
+                                    position: "bottom-left",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                })
+
+                            }).catch(error=>{
+                                toast.error(`${error.data.detail}`,{
+                                    position: "bottom-left",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "colored",
+                                })
+                            })
                         }} style={{color: "rgb(25, 118, 210)"}}/>
                     </TableCell>
                 </TableRow>)

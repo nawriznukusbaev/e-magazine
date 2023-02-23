@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import {useAddCountryMutation} from "../../../store/slices/CountriesSlice";
+import {toast} from "react-toastify";
 
 
 const style = {
@@ -38,8 +39,30 @@ export const AddCountry = () => {
 
     const onSubmit = (value) => {
         defaultData.country_name = value.country;
-        console.log(defaultData);
-        addCategory(defaultData);
+        addCategory(defaultData).unwrap().then(response=>{
+            toast.success('Успешно',{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+
+        }).catch(error=>{
+            toast.error(`${error.data.detail}`,{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        })
 
     }
 

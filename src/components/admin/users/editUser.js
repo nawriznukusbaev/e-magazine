@@ -14,6 +14,7 @@ import {useAddUserMutation, useUpdateUserMutation} from "../../../store/slices/U
 import {useState} from "react";
 import {Switch} from "@mui/material";
 import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
+import {toast} from "react-toastify";
 
 const style = {
     display: 'flex',
@@ -70,7 +71,30 @@ export const EditUser = ({data,itemId}) => {
         updateUser({
             user:defaultData,
             user_id:itemId
-        });
+        }).unwrap().then(response=>{
+            toast.success('Успешно',{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+
+        }).catch(error=>{
+            toast.error(`${error.data.detail}`,{
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        })
 
     }
 

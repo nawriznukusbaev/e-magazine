@@ -9,6 +9,7 @@ import {useDeleteUserMutation} from "../../../store/slices/UserSlice";
 import Modal from "@mui/material/Modal";
 import {EditUser} from "./editUser";
 import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
+import {toast} from "react-toastify";
 
 export const UsersTableBody = ({data}) => {
     const [deleteUser] = useDeleteUserMutation();
@@ -49,7 +50,30 @@ export const UsersTableBody = ({data}) => {
                             handleOpen(item.id)
                         }} style={{color: "rgb(25, 118, 210)", marginRight: "5px"}}/>
                         <DeleteForeverIcon onClick={() => {
-                            deleteUser(item.id)
+                            deleteUser(item.id).unwrap().then(response=>{
+                                toast.success('Успешно',{
+                                    position: "bottom-left",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "light",
+                                })
+
+                            }).catch(error=>{
+                                toast.error(`${error.data.detail}`,{
+                                    position: "bottom-left",
+                                    autoClose: 3000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true,
+                                    progress: undefined,
+                                    theme: "colored",
+                                })
+                            })
                         }} style={{color: "rgb(25, 118, 210)"}}/>
                     </TableCell>
 

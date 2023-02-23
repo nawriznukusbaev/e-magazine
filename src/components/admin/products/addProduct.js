@@ -14,6 +14,7 @@ import {useAddProductMutation} from "../../../store/slices/ProductSlice";
 
 import {useState} from "react";
 import {useGetCategoriesQuery} from "../../../store/slices/CategorySlice";
+import {toast} from "react-toastify";
 
 const style = {
     display:'flex',
@@ -51,8 +52,30 @@ export const AddProduct = () => {
                     "image_path": value.image_path
                 },
             ]}
-            console.log(defaultData);
-            addProduct(defaultData);
+            addProduct(defaultData).unwrap().then(response=>{
+                toast.success('Успешно',{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+            }).catch(error=>{
+                toast.error(`${error.data.detail}`,{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            });
 
     }
 

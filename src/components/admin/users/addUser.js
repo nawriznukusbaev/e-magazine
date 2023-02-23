@@ -2,18 +2,13 @@ import TextField from "@mui/material/TextField";
 import {Box} from "@mui/material";
 import {Button} from "@mui/material";
 import {useForm} from "react-hook-form";
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
-import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import Stack from '@mui/material/Stack';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 import {useAddUserMutation} from "../../../store/slices/UserSlice";
 import {useState} from "react";
 import {Switch} from "@mui/material";
-import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
+import {toast} from "react-toastify";
+import {useLocation} from "react-router-dom";
 
 const style = {
     display: 'flex',
@@ -31,19 +26,20 @@ const style = {
 };
 
 export const AddUser = ({dataCountry}) => {
-    const [addUser, result] = useAddUserMutation();
-
+    const [addUser] = useAddUserMutation();
     const {register, handleSubmit} = useForm();
     const [country, setCountry] = useState();
     const [phone_variant, setPhoneVariant] = useState();
+    const location = useLocation();
     let defaultData=null;
 
+    console.log(location);
     const onSubmit = (value) => {
         defaultData =
         {
             user: {
             username: value.username,
-                is_admin: value.isAdmin,
+                is_admin: location.pathname==='/login'?0:value.isAdmin,
                 password: value.password
         },
             user_detail: {
@@ -66,7 +62,30 @@ export const AddUser = ({dataCountry}) => {
 
         }
 
-            addUser(defaultData);
+            addUser(defaultData).unwrap().then(response=>{
+                toast.success('Успешно',{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+            }).catch(error=>{
+                toast.error(`${error.data.detail}`,{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            })
 
     }
 
@@ -98,7 +117,7 @@ export const AddUser = ({dataCountry}) => {
                             label="Username"
                             sx={{marginRight: "10px", width: "50%"}}
                         />
-                        <div style={{display: "flex", flexDirection: "row"}}><Switch {...register("isAdmin")} />Admin</div>
+                        {location.pathname==='/login'?"":(<div style={{display: "flex", flexDirection: "row"}}><Switch {...register("isAdmin")} />Admin</div>)}
                     </div>
                     <TextField
                         {...register("password",  {

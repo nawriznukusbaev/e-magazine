@@ -6,11 +6,9 @@ import {Link} from "react-router-dom";
 export const NewProducts = () => {
     const {data}=useGetProductsQuery();
     let dataProducts=[];
-    console.log(data);
     if(data!==undefined){
         dataProducts=[...data];
     }
-    console.log(dataProducts);
     return (<>
         {data && <div className="container-xl flex flex-col mb-[15px]">
             <div className="flex flex-row">

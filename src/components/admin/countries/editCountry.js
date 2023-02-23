@@ -11,6 +11,7 @@ import Stack from '@mui/material/Stack';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import {useUpdateCountryMutation} from "../../../store/slices/CountriesSlice";
+import {toast} from "react-toastify";
 
 
 const style = {
@@ -38,7 +39,30 @@ export const EditCountry = ({itemId}) => {
              updateCountry({
                  "country_name":value.country,
                  "country_id":itemId
-            });
+            }).unwrap().then(response=>{
+                 toast.success('Успешно',{
+                     position: "bottom-left",
+                     autoClose: 3000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     progress: undefined,
+                     theme: "light",
+                 })
+
+             }).catch(error=>{
+                 toast.error(`${error.data.detail}`,{
+                     position: "bottom-left",
+                     autoClose: 3000,
+                     hideProgressBar: false,
+                     closeOnClick: true,
+                     pauseOnHover: true,
+                     draggable: true,
+                     progress: undefined,
+                     theme: "colored",
+                 })
+             })
         }
 
 

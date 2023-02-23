@@ -14,8 +14,6 @@ import {useGetCountriesQuery} from "../../../store/slices/CountriesSlice";
 export default function Users() {
     const {data,result} = useGetUsersQuery();
     const {data:dataCountry} = useGetCountriesQuery();
-    console.log(dataCountry);
-    /*console.log(result);*/
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);

@@ -8,7 +8,6 @@ import {add} from "../../store/slices/CartSlice";
 export const Product = () => {
     let {id} = useParams();
     const {data} = useGetSingleProductQuery(id);
-
     const dispatch = useDispatch();
 
     return (<>
