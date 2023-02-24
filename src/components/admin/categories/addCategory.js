@@ -8,21 +8,8 @@ import {useAddCategoryMutation, useGetCategoriesQuery} from "../../../store/slic
 import {useState} from "react";
 import 'react-toastify/dist/ReactToastify.css'
 import {toast} from "react-toastify";
+import {style} from "../../modal_style";
 
-const style = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: "center",
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
 
 export const AddCategory = () => {
     const [addCategory, result] = useAddCategoryMutation();

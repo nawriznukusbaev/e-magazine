@@ -12,23 +12,7 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import {useUpdateCountryMutation} from "../../../store/slices/CountriesSlice";
 import {toast} from "react-toastify";
-
-
-const style = {
-    display:'flex',
-    flexDirection:'column',
-    alignItems:"center",
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
-
+import {style} from "../../modal_style";
 export const EditCountry = ({itemId}) => {
 
     const [updateCountry, result]=useUpdateCountryMutation();

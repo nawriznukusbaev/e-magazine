@@ -5,29 +5,26 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import {EditUser} from "../admin/users/editUser";
+import {useGetUsersQuery} from "../../store/slices/UserSlice";
+import {useGetCountriesQuery} from "../../store/slices/CountriesSlice";
+import {AddUser} from "../admin/users/addUser";
+import Modal from "@mui/material/Modal";
 
 function HeaderUserPage() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const {data, result} = useGetUsersQuery();
+    const {data: dataCountry} = useGetCountriesQuery();
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
     const handleOpenUserMenu = (event) => {
         setAnchorElUser(event.currentTarget);
     };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
-
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
@@ -35,15 +32,15 @@ function HeaderUserPage() {
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{display:"flex", justifyContent:"right"}}>
-                    <Box sx={{ flexGrow: 0 }}>
+                <Toolbar disableGutters sx={{display: "flex", justifyContent: "right"}}>
+                    <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                            <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
+                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
                             </IconButton>
                         </Tooltip>
                         <Menu
-                            sx={{ mt: '45px' }}
+                            sx={{mt: '45px'}}
                             id="menu-appbar"
                             anchorEl={anchorElUser}
                             anchorOrigin={{
@@ -58,11 +55,21 @@ function HeaderUserPage() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Profile</Typography>
+                            </MenuItem>
+                            <Modal
+                                open={open}
+                                onClose={handleClose}
+                                aria-labelledby="modal-modal-title"
+                                aria-describedby="modal-modal-description"
+                            >
+                            </Modal>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                                <Typography textAlign="center">Exit</Typography>
+                            </MenuItem>
+
+
                         </Menu>
                     </Box>
                 </Toolbar>
@@ -70,4 +77,5 @@ function HeaderUserPage() {
         </AppBar>
     );
 }
+
 export default HeaderUserPage;
