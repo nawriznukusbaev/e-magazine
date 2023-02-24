@@ -14,6 +14,7 @@ import {useGetUsersQuery} from "../../store/slices/UserSlice";
 import {useGetCountriesQuery} from "../../store/slices/CountriesSlice";
 import {AddUser} from "../admin/users/addUser";
 import Modal from "@mui/material/Modal";
+import {Profile} from "./profile";
 
 function HeaderUserPage() {
     const {data, result} = useGetUsersQuery();
@@ -55,7 +56,7 @@ function HeaderUserPage() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleCloseUserMenu}>
+                            <MenuItem onClick={handleOpen}>
                                 <Typography textAlign="center">Profile</Typography>
                             </MenuItem>
                             <Modal
@@ -64,6 +65,7 @@ function HeaderUserPage() {
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
                             >
+                                <Profile/>
                             </Modal>
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center">Exit</Typography>
