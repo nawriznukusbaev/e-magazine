@@ -1,6 +1,7 @@
 import logo from '../../img/elmakon.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
+import {Link} from "react-router-dom";
 
 export const HeaderTopMenu = () => {
     return (
@@ -9,7 +10,7 @@ export const HeaderTopMenu = () => {
                 <div className="">
                     <ul className="flex flex-row items-center">
                         <li className="py-[15px]">
-                            <a href="#"><img alt="Elmakon.ang" className="mr-[1vw] pr-[1vw] w-[220px] mr-[10px]" src={logo}/></a>
+                            <Link to={'/'}><img alt="Elmakon.ang" className="mr-[1vw] pr-[1vw] w-[220px] mr-[10px]" src={logo}/></Link>
                         </li>
                         <li>
                             <a href="#" className=" mr-[1vw] pr-[1vw] text-base  font-normal border-r border-solid border-inherit">

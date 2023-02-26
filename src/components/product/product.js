@@ -5,6 +5,7 @@ import {useGetSingleProductQuery} from "../../store/slices/ProductSlice";
 import {useParams} from "react-router-dom";
 import {useSelector,useDispatch} from "react-redux";
 import {add} from "../../store/slices/CartSlice";
+import {toast} from "react-toastify";
 export const Product = () => {
     let {id} = useParams();
     const {data} = useGetSingleProductQuery(id);
@@ -75,7 +76,17 @@ export const Product = () => {
                                 </div>
                                 <Button variant="outlined" style={{width: "210px", height: "50px"}}
                                         startIcon={<AddShoppingCart/>}
-                                        onClick={()=>dispatch(add(data))}
+                                        onClick={()=>{dispatch(add(data));
+                                            toast(`Товар успешно добавлен`, {
+                                            position: "top-right",
+                                            autoClose: 3000,
+                                            hideProgressBar: false,
+                                            closeOnClick: true,
+                                            pauseOnHover: true,
+                                            draggable: true,
+                                            progress: undefined,
+                                            theme: "colored",
+                                        })}}
                                 >
                                     В корзину
                                 </Button>

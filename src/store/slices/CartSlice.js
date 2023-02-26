@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    value: [],
+    count:0,
+    products: [],
 };
 
 const cartSlice = createSlice({
@@ -9,28 +10,34 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         add:(state, action) => {
-            if (state.value.find(item => item.id === action.payload.id) === undefined) {
-                action.payload.count=1;
-                return [...state.value, action.payload];
+            const {name,id,quantity,price,images}=action.payload;
+            if(state.products.find(item=>item.product_id===action.payload.id)===undefined){
+                state.products.push({
+                    name:name,
+                    product_id:id,
+                    quantity:1,
+                    price:price,
+                    image:images[0].image_path
+                })
+                state.count+=1;
             } else {
-                return state.value.map(item => {
-                    if (item.id === action.id) {
-                        item.count+=1;
-                        console.log(item);
-                        return item
-                    }
-                    else return item;
-                });
+                state.products.find(item=>item.product_id===action.payload.id).quantity+=1;
+                state.count+=1;
             }
         },
         remove: (state, action) => {
-
+            state.count-=state.products.find(item=>item.product_id===action.payload.product_id).quantity;
+            state.products.splice(action.payload.index,1);
         },
         increase: (state, action) => {
-
+            state.products.find(item=>item.product_id===action.payload).quantity+=1;
+            state.count+=1;
         },
         decrease: (state, action) => {
-
+            if(state.products.find(item=>item.product_id===action.payload).quantity>1){
+                state.products.find(item=>item.product_id===action.payload).quantity-=1;
+                state.count-=1;
+            }
         },
 
 
