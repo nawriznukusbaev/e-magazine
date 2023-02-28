@@ -9,15 +9,19 @@ import {useAddOrderMutation} from "../../store/slices/OrdersSlice";
 import {useGetUsersQuery} from "../../store/slices/UserSlice";
 import jwtDecode from "jwt-decode";
 export const Cart = () => {
+    const cartProducts=useSelector(state => state.cart.cartProducts);
     const products=useSelector(state => state.cart.products);
-    const {data:users} = useGetUsersQuery();
-    const user=jwtDecode(getCookie('token')).sub;
-    const userData=users.filter(users=>users.username===user);
+    const {data} = useGetUsersQuery();
     const navigate=useNavigate();
-    const {add}=useAddOrderMutation();
+    const [addOrder]=useAddOrderMutation();
+    var count=0;
+    const allPrice=()=>{products.map((item)=>{
+        count+=parseInt(item.price*item.quantity);
+    })}
+
     const checkout = ()=>{
         if(getCookie('token')===undefined){
-            toast.warn(`Вы не аторизиваны!`, {
+            toast.warn(`Вы не аторизованы!`, {
                 position: "top-right",
                 autoClose: 3000,
                 hideProgressBar: false,
@@ -44,29 +48,46 @@ export const Cart = () => {
             });
         }
         else {
+            const user=jwtDecode(getCookie('token')).sub;
+            const userData=data.filter(users=>users.username===user);
             let date = new Date().toISOString().slice(0,10);
-            const productsArr=products.filter(item=>item.name);
-            console.log(productsArr);
-           /* const body={
+            console.log(userData[0].addresses[0].country.id);
+           const body={
                 "order": {
                     "user_id": userData[0].id,
                     "order_date": date,
-                    "address_id":userData[0].addresses[0].country.country_name+", "
-                        +userData[0].addresses[0].city+", "
-                        +userData[0].addresses[0].street_address+", postal code:"
-                        +userData[0].addresses[0].postal_code,
+                    "address_id":userData[0].addresses[0].country.id,
                     "order_status_id": 1
                 },
-                "order_details": [
-                    {
-                        "product_id": 1,
-                        "quantity": 2,
-                        "price": 1000
-                    },
-
-                ]
-            }*/
+                "order_details": products
             }
+
+            addOrder(body).unwrap().then(response=>{
+                toast.success('Заказ успешно добавлен!',{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                })
+
+            }).catch(error=>{
+                toast.error(`${error.data.detail}`,{
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                })
+            });
+
+        }
 
         }
 
@@ -100,11 +121,8 @@ export const Cart = () => {
                     <div className="flex flex-row justify-end mx-[15px] p-[15px] border-[0.5px] border-solid border-inherit">
                         <p className="mr-[25px] text-slate-400 text-[25px] font-semibold">Итоговая сумма</p>
                         <p className="text-[25px] font-semibold">
-                            {products.map((item)=>{
-                                let count=0;
-                                count+=item.price*item.quantity;
-                                return count
-                            })}
+                            {allPrice()}
+                            {count}
                             UZS</p>
                     </div>
                     <div className="flex flex-row justify-between m-[15px] p-[15px] rounded-md bg-slate-200">

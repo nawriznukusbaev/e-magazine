@@ -2,23 +2,22 @@ import TextField from "@mui/material/TextField";
 import {Box} from "@mui/material";
 import {Button} from "@mui/material";
 import {useForm} from "react-hook-form";
-
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 import {useUpdateUserMutation} from "../../../store/slices/UserSlice";
 import {useState} from "react";
 import {Switch} from "@mui/material";
-
 import {toast} from "react-toastify";
 import {style} from "../../modal_style";
+import {useLocation} from "react-router-dom";
 
 
 export const EditUser = ({data,itemId}) => {
-    console.log(data);
     const [updateUser] = useUpdateUserMutation();
     const {register, handleSubmit} = useForm();
     const [country, setCountry] = useState();
     const [phone_variant, setPhoneVariant] = useState();
+    const location = useLocation();
     let defaultData=null;
 
     const onSubmit = (value) => {
@@ -26,7 +25,7 @@ export const EditUser = ({data,itemId}) => {
             {
                 user: {
                     username: value.username,
-                    is_admin: value.isAdmin,
+                    is_admin: location.pathname==='/userpage'?0:value.isAdmin,
                     password: value.password
                 },
                 user_detail: {
@@ -108,7 +107,7 @@ export const EditUser = ({data,itemId}) => {
                             label="Username"
                             sx={{marginRight: "10px", width: "50%"}}
                         />
-                        <div style={{display: "flex", flexDirection: "row"}}><Switch {...register("isAdmin")} />Admin</div>
+                        {location.pathname==='/userpage'?"":(<div style={{display: "flex", flexDirection: "row"}}><Switch {...register("isAdmin")} />Admin</div>)}
                     </div>
                     <TextField
                         {...register("password",  {

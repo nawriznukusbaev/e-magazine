@@ -18,8 +18,6 @@ export const AddUser = ({dataCountry}) => {
     const [phone_variant, setPhoneVariant] = useState();
     const location = useLocation();
     let defaultData=null;
-
-    console.log(location);
     const onSubmit = (value) => {
         defaultData =
         {
