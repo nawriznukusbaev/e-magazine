@@ -9,11 +9,16 @@ import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import {EditUser} from "../admin/users/editUser";
+import {useGetUsersQuery} from "../../store/slices/UserSlice";
+import {useGetCountriesQuery} from "../../store/slices/CountriesSlice";
 import Modal from "@mui/material/Modal";
 import {Profile} from "./profile";
 import {removeCookie} from "../../utils";
-import { useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 function HeaderUserPage() {
+    const {data, result} = useGetUsersQuery();
+    const {data: dataCountry} = useGetCountriesQuery();
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
@@ -22,6 +27,8 @@ function HeaderUserPage() {
         setAnchorElUser(event.currentTarget);
     };
     const navigate= useNavigate();
+
+
     const handleCloseUserMenu = () => {
         removeCookie('token');
         navigate('/');
