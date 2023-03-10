@@ -1,11 +1,24 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
+import {getCookie} from "../../utils";
 
 export const ordersApi = createApi({
     reducerPath: 'ordersApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce.icedev.uz/'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'https://ecommerce.icedev.uz/',
+        prepareHeaders: (headers)=>{
+
+            if(!!getCookie('token')){
+                console.log(getCookie('token'));
+                return headers.set(
+                    'authorization',`bearer ${getCookie('token')}`
+                );
+            }
+        },
+    }),
+
     endpoints: (builder) => ({
-        getOrders: builder.query({
-            query: () => `orders`
+        getUserOrders: builder.query({
+            query: (user_id) => `orders/${user_id}`
+
         }),
         getSingleOrder: builder.query({
             query: (id) => `orders/${id}`
@@ -53,4 +66,4 @@ export const ordersApi = createApi({
 
 });
 
-export const {useGetOrdersQuery, useGetSingleOrderQuery,useGetLimitOrderQuery,useAddOrderMutation,useUpdateOrderMutation,useDeleteOrderMutation} = ordersApi;
+export const {useGetUserOrdersQuery, useGetSingleOrderQuery,useGetLimitOrderQuery,useAddOrderMutation,useUpdateOrderMutation,useDeleteOrderMutation} = ordersApi;

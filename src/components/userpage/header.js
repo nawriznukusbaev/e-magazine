@@ -16,6 +16,7 @@ import Modal from "@mui/material/Modal";
 import {Profile} from "./profile";
 import {removeCookie} from "../../utils";
 import {useNavigate} from "react-router-dom";
+import {useGetOrdersQuery} from "../../store/slices/OrdersSlice";
 function HeaderUserPage() {
     const {data, result} = useGetUsersQuery();
     const {data: dataCountry} = useGetCountriesQuery();

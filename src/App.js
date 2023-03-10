@@ -17,6 +17,7 @@ import Products from "./components/admin/products/products";
 import Countries from "./components/admin/countries/countries";
 import Users from "./components/admin/users/users";
 import UserPage from "./components/userpage";
+import Orders from "./components/admin/orders/orders";
 
 
 const App = () => {
@@ -45,7 +46,7 @@ const App = () => {
                     <Route path='/admin'  element={<AdminLayout/>}>
                         <Route path="products" element={<Products/>}/>
                         <Route path="products/add" element={<Cart/>}/>
-                        <Route path="orders" element={<Cart/>}/>
+                        <Route path="orders" element={<Orders/>}/>
                         <Route path="orders/add" element={<Cart/>}/>
                         <Route path="users" element={<Users/>}/>
                         <Route path="users/add" element={<Cart/>}/>

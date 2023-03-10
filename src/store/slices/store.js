@@ -7,10 +7,14 @@ import {authApi} from "./AuthSlice";
 import {ordersApi} from "./OrdersSlice";
 import loginSlice from "./LoginSlice";
 import cartReducer from "./CartSlice";
+import {adminOrdersApi} from "./AdminOrders";
+import {callOrdersApi} from "./callOrders";
 const store = configureStore({
     reducer: {
         login:loginSlice,
         cart:cartReducer,
+        [callOrdersApi.reducerPath]: callOrdersApi.reducer,
+        [adminOrdersApi.reducerPath]: adminOrdersApi.reducer,
         [ordersApi.reducerPath]: ordersApi.reducer,
         [productsApi.reducerPath]: productsApi.reducer,
         [categoriesApi.reducerPath]: categoriesApi.reducer,
@@ -19,6 +23,8 @@ const store = configureStore({
         [authApi.reducerPath]: authApi.reducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
+        callOrdersApi.middleware,
+        adminOrdersApi.middleware,
         ordersApi.middleware,
         productsApi.middleware,
         categoriesApi.middleware,

@@ -2,8 +2,18 @@ import logo from '../../img/elmakon.png'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StackedBarChartIcon from '@mui/icons-material/StackedBarChart';
 import {Link} from "react-router-dom";
+import * as React from "react";
+import {OrderProducts} from "../userpage/orderProducts";
+import Modal from "@mui/material/Modal";
 
 export const HeaderTopMenu = () => {
+    const [open, setOpen] = React.useState(false);
+    const [itemId, setItemId] = React.useState(0);
+    const handleOpen = (item) => {
+        setOpen(true);
+
+    };
+    const handleClose = () => setOpen(false);
     return (
         <div className="w-full ">
             <div className="container-xl flex flex-row justify-between items-center mx-auto">
@@ -52,9 +62,19 @@ export const HeaderTopMenu = () => {
                         <p className="text-[22px] font-bold">
                             +998-90-653-53-07
                         </p>
-                        <a href="#" className="text-base  underline decoration-dotted">
+                        <button className="text-base  underline decoration-dotted"
+                        onClick={()=>handleOpen(true)}
+                        >
                             Заказать обратный звонок
-                        </a>
+                        </button>
+                        <Modal
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="modal-modal-title"
+                            aria-describedby="modal-modal-description"
+                        >
+                            <h1>Nawriz</h1>
+                        </Modal>
                     </div>
                 </div>
 
