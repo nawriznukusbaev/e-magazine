@@ -1,5 +1,6 @@
 import {SidebarMenu} from "./sidebar-menu";
 import {Outlet} from "react-router-dom";
+import HeaderUserPage from "../userpage/header";
 
 export const AdminLayout= () =>{
 
@@ -9,6 +10,7 @@ export const AdminLayout= () =>{
                 <SidebarMenu/>
             </div>
             <div className="flex flex-col w-[80%] h-[100vh]">
+                <HeaderUserPage/>
                 <Outlet/>
             </div>
         </div>

@@ -45,15 +45,10 @@ const App = () => {
                     }/>
                     <Route path='/admin'  element={<AdminLayout/>}>
                         <Route path="products" element={<Products/>}/>
-                        <Route path="products/add" element={<Cart/>}/>
                         <Route path="orders" element={<Orders/>}/>
-                        <Route path="orders/add" element={<Cart/>}/>
                         <Route path="users" element={<Users/>}/>
-                        <Route path="users/add" element={<Cart/>}/>
                         <Route path="categories" element={<Categories/>}/>
-                        <Route path="categories/add" element={<AddCategory/>}/>
                         <Route path="countries" element={<Countries/>}/>
-                        <Route path="countries/add" element={<Cart/>}/>
                     </Route>
                     </Routes>
 

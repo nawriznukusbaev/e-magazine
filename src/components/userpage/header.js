@@ -14,8 +14,8 @@ import {useGetUsersQuery} from "../../store/slices/UserSlice";
 import {useGetCountriesQuery} from "../../store/slices/CountriesSlice";
 import Modal from "@mui/material/Modal";
 import {Profile} from "./profile";
-import {removeCookie} from "../../utils";
-import {useNavigate} from "react-router-dom";
+import {getJwtToken, removeCookie} from "../../utils";
+import {useLocation, useNavigate} from "react-router-dom";
 import {useGetOrdersQuery} from "../../store/slices/OrdersSlice";
 function HeaderUserPage() {
     const {data, result} = useGetUsersQuery();
@@ -28,6 +28,9 @@ function HeaderUserPage() {
         setAnchorElUser(event.currentTarget);
     };
     const navigate= useNavigate();
+    const location=useLocation();
+
+
 
 
     const handleCloseUserMenu = () => {
@@ -61,7 +64,9 @@ function HeaderUserPage() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem onClick={handleOpen}>
+                            {getJwtToken('token').is_admin===1?(<></>):
+                                <>
+                                    <MenuItem onClick={handleOpen}>
                                 <Typography textAlign="center">Profile</Typography>
                             </MenuItem>
                             <Modal
@@ -69,9 +74,11 @@ function HeaderUserPage() {
                                 onClose={handleClose}
                                 aria-labelledby="modal-modal-title"
                                 aria-describedby="modal-modal-description"
-                            >
+                                >
                                 <Profile/>
-                            </Modal>
+                                </Modal></>}
+
+
                             <MenuItem onClick={handleCloseUserMenu}>
                                 <Typography textAlign="center">Exit</Typography>
                             </MenuItem>
